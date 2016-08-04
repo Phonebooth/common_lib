@@ -1,0 +1,33 @@
+-ifdef(crypto_use_sha_mac).
+-define(SHA_HMAC(Key, Data), crypto:sha_mac(Key, Data)).
+-else.
+-define(SHA_HMAC(Key, Data), crypto:hmac(sha, Key, Data)).
+-endif.
+
+-ifdef(crypto_use_hash).
+-define(MD5(Data), crypto:hash(md5, Data)).
+-define(SHA(Data), crypto:hash(sha, Data)).
+-else.
+-define(MD5(Data), crypto:md5(Data)).
+-define(SHA(Data), crypto:sha(Data)).
+-endif.
+
+-ifdef(use_new_time_api).
+-define(NOW(), erlang:timestamp()).
+-define(UNOW(), {erlang:monotonic_time(), erlang:unique_integer([monotonic]), erlang:unique_integer([monotonic])}).
+-else.
+-define(NOW(), os:timestamp()). 
+-define(UNOW(), erlang:now()).
+-endif.
+
+-ifdef(use_rand).
+-define(RANDOM_SEED(), rand:seed(exsplus, {erlang:monotonic_time(), erlang:unique_integer([monotonic]), erlang:unique_integer([monotonic])})).
+-define(RANDOM_SEED(Data), rand:seed(exsplus, Data)).
+-define(RANDOM_UNIFORM(), rand:uniform()).
+-define(RANDOM_UNIFORM(Int), rand:uniform(Int)).
+-else.
+-define(RANDOM_SEED(), random:seed(erlang:now())).
+-define(RANDOM_SEED(Data), random:seed(Data)).
+-define(RANDOM_UNIFORM(), random:uniform()).
+-define(RANDOM_UNIFORM(Int), random:uniform(Int)).
+-endif.

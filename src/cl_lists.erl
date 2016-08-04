@@ -53,6 +53,8 @@
          to_number/1,
          ukeymerge/3]).
 
+-include("../include/cl.hrl").
+
 %%%-----------------------------------------------------------------------------
 %%% EXTERNAL EXPORTS
 %%%-----------------------------------------------------------------------------
@@ -210,7 +212,7 @@ random(Max, Length) ->
 random(_Max, 0, List) ->
     List;
 random(Max, Length, List) ->
-    random(Max, Length - 1, [random:uniform(Max)|List]).
+    random(Max, Length - 1, [?RANDOM_UNIFORM(Max)|List]).
 
 
 random_seq(Max, Length) when (Length * 2) > Max ->
@@ -301,14 +303,14 @@ ukeymerge(N, [H1|T1], [H2|T2], MergedList) ->
 random_del(_Max, 0, List) ->
     List;
 random_del(Max, Count, List1) ->
-    List2 = lists:delete(random:uniform(Max), List1),
+    List2 = lists:delete(?RANDOM_UNIFORM(Max), List1),
     random_del(Max, Count - (length(List1) - length(List2)), List2).
 
 
 random_add(_Max, 0, List) ->
     List;
 random_add(Max, Count, List) ->
-    Element = random:uniform(Max),
+    Element = ?RANDOM_UNIFORM(Max),
     case lists:member(Element, List) of
         true ->
             random_add(Max, Count, List);
