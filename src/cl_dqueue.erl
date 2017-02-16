@@ -40,6 +40,8 @@
 %%% MACROS
 -define(HIGH_PRIORITY, 0).
 
+-include_lib("pb2utils/include/pb2utils.hrl").
+
 %%%-----------------------------------------------------------------------------
 %%% OPEN/CLOSE EXPORTS
 %%%-----------------------------------------------------------------------------
@@ -197,7 +199,7 @@ item_extract(Dets, Key) ->
 
 
 item_insert(Dets, Item, Priority) ->
-    Key = now(),
+    Key = ?NOW(),
     ok = dets:insert(Dets, {Key, Priority, Item}),
     Key.
 
