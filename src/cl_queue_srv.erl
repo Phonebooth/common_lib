@@ -50,6 +50,8 @@
 %%% CODE UPDATE EXPORTS
 -export([code_change/3]).
 
+-compile([nowarn_deprecated_function]).
+
 %%% RECORDS
 -record(st, {parent, queue, in = 0, out = 0, start = now()}).
 

@@ -37,6 +37,8 @@
 %%% EXTENDED EXPORTS
 -export([get/1, get_r/1]).
 
+-compile([nowarn_deprecated_function]).
+
 %%% MACROS
 -define(HIGH_PRIORITY, 0).
 
